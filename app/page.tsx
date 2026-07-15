@@ -365,7 +365,7 @@ export default function Home() {
   );
   const [showPhotoEditor, setShowPhotoEditor] = useState(false);
   const [showUploadModal, setShowUploadModal] = useState(false);
-  const [showShareMenu, setShowShareMenu] = useState(false);
+
   const [shareToast, setShareToast] = useState<string | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
@@ -518,12 +518,10 @@ export default function Home() {
     }
   }, []);
 
-  const handleShare = useCallback(async (platform: string) => {
+  const handleShare = useCallback(async () => {
     if (!canvasRef.current) return;
     
     const shareText = `Just corporate-ified my day on Reality vs LinkedIn! 🚀 Try it yourself: ${WEB_URL}`;
-    const encodedText = encodeURIComponent(shareText);
-    const encodedUrl = encodeURIComponent(WEB_URL);
     
     try {
       // Step 1: Generate the image blob from canvas
@@ -532,21 +530,19 @@ export default function Home() {
       );
       if (!blob) return;
 
-      // Native share (mobile) — shares the actual image file
-      if (platform === "native") {
-        const file = new File([blob], "reality-vs-linkedin.png", { type: "image/png" });
-        if (navigator.canShare && navigator.canShare({ files: [file] })) {
-          await navigator.share({
-            title: "Reality vs LinkedIn",
-            text: shareText,
-            files: [file],
-          });
-          setShowShareMenu(false);
-          return;
-        }
+      const file = new File([blob], "reality-vs-linkedin.png", { type: "image/png" });
+
+      // Step 2: Native share (mobile) — shares the actual image file
+      if (navigator.canShare && navigator.canShare({ files: [file] })) {
+        await navigator.share({
+          title: "Reality vs LinkedIn",
+          text: shareText,
+          files: [file],
+        });
+        return;
       }
 
-      // Step 2: Copy image to clipboard so user can paste it
+      // Step 3: Fallback (Desktop/unsupported browsers) - Copy image to clipboard so user can paste it
       try {
         await navigator.clipboard.write([
           new ClipboardItem({ "image/png": blob })
@@ -555,7 +551,7 @@ export default function Home() {
         // Clipboard write may fail in some browsers, continue anyway
       }
 
-      // Step 3: Also auto-download the image
+      // Step 4: Fallback auto-download the image
       const downloadUrl = URL.createObjectURL(blob);
       const a = document.createElement("a");
       a.href = downloadUrl;
@@ -563,27 +559,12 @@ export default function Home() {
       a.click();
       URL.revokeObjectURL(downloadUrl);
 
-      // Step 4: Open the social media platform
-      const urls: Record<string, string> = {
-        twitter: `https://twitter.com/intent/tweet?text=${encodedText}`,
-        linkedin: `https://www.linkedin.com/sharing/share-offsite/?url=${encodedUrl}`,
-        whatsapp: `https://api.whatsapp.com/send?text=${encodedText}`,
-        facebook: `https://www.facebook.com/sharer/sharer.php?u=${encodedUrl}&quote=${encodedText}`,
-        reddit: `https://www.reddit.com/submit?url=${encodedUrl}&title=${encodeURIComponent("Reality vs LinkedIn 🚀")}`,
-        telegram: `https://t.me/share/url?url=${encodedUrl}&text=${encodedText}`,
-      };
-
-      if (urls[platform]) {
-        window.open(urls[platform], "_blank", "noopener,noreferrer");
-      }
-
       // Step 5: Show toast telling user to paste the image
       setShareToast("✅ Image copied & downloaded! Paste it (Ctrl+V) in your post.");
       setTimeout(() => setShareToast(null), 5000);
     } catch (err) {
       console.log("Error sharing:", err);
     }
-    setShowShareMenu(false);
   }, []);
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
@@ -867,7 +848,7 @@ export default function Home() {
             
             <div className="relative">
               <button
-                onClick={() => setShowShareMenu(!showShareMenu)}
+                onClick={handleShare}
                 className="px-5 py-2.5 rounded-xl font-medium text-sm text-white
                            bg-gradient-to-r from-blue-600 to-indigo-600
                            hover:from-blue-500 hover:to-indigo-500
@@ -876,41 +857,6 @@ export default function Home() {
               >
                 🚀 Share
               </button>
-
-              {showShareMenu && (
-                <>
-                  {/* Click-away overlay */}
-                  <div className="fixed inset-0 z-40" onClick={() => setShowShareMenu(false)} />
-                  <div className="absolute bottom-full mb-2 right-0 z-50 border rounded-xl p-2 shadow-2xl min-w-[200px] space-y-1 animate-in fade-in slide-in-from-bottom-2" style={{ backgroundColor: 'var(--modal-bg)', borderColor: 'var(--border-primary)' }}>
-                    {typeof navigator !== "undefined" && typeof navigator.share === "function" && (
-                      <button onClick={() => handleShare("native")} className="w-full flex items-center gap-3 px-4 py-2.5 text-sm rounded-lg theme-menu-item">
-                        <span>📱</span> Native Share
-                      </button>
-                    )}
-                    <button onClick={() => handleShare("twitter")} className="w-full flex items-center gap-3 px-4 py-2.5 text-sm rounded-lg theme-menu-item">
-                      <span>𝕏</span> Twitter / X
-                    </button>
-                    <button onClick={() => handleShare("linkedin")} className="w-full flex items-center gap-3 px-4 py-2.5 text-sm rounded-lg theme-menu-item">
-                      <span style={{color: '#0A66C2'}}>in</span> LinkedIn
-                    </button>
-                    <button onClick={() => handleShare("whatsapp")} className="w-full flex items-center gap-3 px-4 py-2.5 text-sm rounded-lg theme-menu-item">
-                      <span>💬</span> WhatsApp
-                    </button>
-                    <button onClick={() => handleShare("facebook")} className="w-full flex items-center gap-3 px-4 py-2.5 text-sm rounded-lg theme-menu-item">
-                      <span style={{color: '#1877F2'}}>f</span> Facebook
-                    </button>
-                    <button onClick={() => handleShare("reddit")} className="w-full flex items-center gap-3 px-4 py-2.5 text-sm rounded-lg theme-menu-item">
-                      <span style={{color: '#FF5700'}}>⬆</span> Reddit
-                    </button>
-                    <button onClick={() => handleShare("telegram")} className="w-full flex items-center gap-3 px-4 py-2.5 text-sm rounded-lg theme-menu-item">
-                      <span style={{color: '#0088CC'}}>✈</span> Telegram
-                    </button>
-                    <div className="border-t border-zinc-700 mt-1 pt-1">
-                      <p className="px-4 py-1.5 text-[10px] text-center" style={{ color: 'var(--text-muted)' }}>Try it: {WEB_URL}</p>
-                    </div>
-                  </div>
-                </>
-              )}
             </div>
           </div>
         </div>
