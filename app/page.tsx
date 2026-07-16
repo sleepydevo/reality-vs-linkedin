@@ -341,6 +341,18 @@ const EXAMPLES = [
   "I forgot someone's name in a meeting",
 ];
 
+const SURPRISE_ME_PROMPTS = [
+  "I ate an entire pizza by myself and now I feel sick.",
+  "I tripped on the sidewalk but pretended I was just jogging.",
+  "I accidentally waved at someone who was waving at the person behind me.",
+  "I spent 45 minutes trying to find a movie on Netflix and then just went to sleep.",
+  "My dog threw up on the carpet this morning.",
+  "I replied 'you too' when the waiter told me to enjoy my meal.",
+  "I bought a gym membership 3 months ago and haven't gone once.",
+  "I got fired today because I told my boss his ideas were bad.",
+  "I slept through my alarm and missed my morning standup."
+];
+
 // ── Main page ────────────────────────────────────────────
 
 export default function Home() {
@@ -350,6 +362,12 @@ export default function Home() {
     reality: string;
     linkedin: string;
   } | null>(null);
+
+  const handleSurpriseMe = () => {
+    const randomPrompt = SURPRISE_ME_PROMPTS[Math.floor(Math.random() * SURPRISE_ME_PROMPTS.length)];
+    setInput(randomPrompt);
+  };
+
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const [copied, setCopied] = useState(false);
@@ -635,6 +653,15 @@ export default function Home() {
         <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-4">
           <div className="flex flex-wrap items-center gap-3 w-full sm:w-auto justify-center sm:justify-start">
             <span className="text-xs hidden sm:inline-block shrink-0" style={{ color: 'var(--text-muted)' }}>{input.length}/500</span>
+
+            <button
+              onClick={handleSurpriseMe}
+              className="text-xs font-medium px-3 py-1.5 rounded-full border transition-all hover:bg-gray-100 dark:hover:bg-zinc-800"
+              style={{ borderColor: 'var(--border-primary)', color: 'var(--text-secondary)' }}
+              title="Give me a random scenario"
+            >
+              Surprise Me 🎲
+            </button>
 
             <select
               value={length}
