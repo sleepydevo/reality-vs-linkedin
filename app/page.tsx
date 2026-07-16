@@ -651,16 +651,14 @@ export default function Home() {
             aria-label="What did you actually do today?"
           />
           
-          {input.length === 0 && (
-            <button
-              onClick={handleSurpriseMe}
-              className="absolute bottom-3 right-3 text-sm font-bold px-4 py-1.5 rounded-full border-2 transition-all hover:bg-[#0a66c2]/10 shadow-sm bg-transparent"
-              style={{ borderColor: '#0a66c2', color: '#0a66c2' }}
-              title="Give me a random scenario"
-            >
-              Surprise Me 🎲
-            </button>
-          )}
+          <button
+            onClick={handleSurpriseMe}
+            className="absolute bottom-3 right-3 text-sm font-bold px-4 py-1.5 rounded-full border-2 transition-all hover:bg-[#0a66c2]/10 shadow-sm bg-transparent"
+            style={{ borderColor: '#0a66c2', color: '#0a66c2' }}
+            title="Give me a random scenario"
+          >
+            Surprise Me 🎲
+          </button>
         </div>
 
         <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-4">
