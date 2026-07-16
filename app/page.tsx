@@ -863,8 +863,11 @@ export default function Home() {
       )}
 
       {/* ── Footer ── */}
-      <footer className="mt-8 text-center text-xs" style={{ color: 'var(--text-muted)' }}>
-        Powered by AI &amp; regret. No data stored, no accounts, just vibes.
+      <footer className="mt-8 mb-4 text-center text-xs flex flex-col gap-2 items-center" style={{ color: 'var(--text-muted)' }}>
+        <div>Powered by AI &amp; regret. No data stored, no accounts, just vibes.</div>
+        <div>
+          Contact: <a href="mailto:testacountsai7@gmail.com" className="hover:underline text-blue-500">testacountsai7@gmail.com</a>
+        </div>
       </footer>
 
       {/* ── Share Toast ── */}
