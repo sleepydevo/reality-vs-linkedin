@@ -634,34 +634,34 @@ export default function Home() {
 
       {/* ── Input area ── */}
       <div className="w-full space-y-3">
-        <div className="flex items-center justify-between px-1 -mb-1">
-          <label htmlFor="reality-input" className="text-sm font-medium" style={{ color: 'var(--text-secondary)' }}>
-            Your Reality
-          </label>
-          <button
-            onClick={handleSurpriseMe}
-            className="text-xs font-medium px-3 py-1.5 rounded-full border transition-all hover:bg-gray-100 dark:hover:bg-zinc-800 flex items-center gap-1.5"
-            style={{ borderColor: 'var(--border-primary)', color: 'var(--text-secondary)' }}
-            title="Give me a random scenario"
-          >
-            Surprise Me 🎲
-          </button>
+        <div className="relative w-full">
+          <textarea
+            id="reality-input"
+            value={input}
+            onChange={(e) => setInput(e.target.value)}
+            onKeyDown={handleKeyDown}
+            placeholder={placeholder}
+            maxLength={500}
+            rows={4}
+            className="w-full rounded-xl border px-4 py-3 pb-12 placeholder-zinc-500 
+                       focus:outline-none focus:ring-2 focus:ring-[#0A66C2]/60 focus:border-transparent
+                       resize-none transition-all duration-200 text-base sm:text-lg"
+            style={{ backgroundColor: 'var(--input-bg)', borderColor: 'var(--border-primary)', color: 'var(--text-primary)' }}
+            disabled={loading}
+            aria-label="What did you actually do today?"
+          />
+          
+          {input.length === 0 && (
+            <button
+              onClick={handleSurpriseMe}
+              className="absolute bottom-3 right-3 text-sm font-bold px-4 py-1.5 rounded-full border-2 transition-all hover:bg-[#0a66c2]/10 shadow-sm bg-transparent"
+              style={{ borderColor: '#0a66c2', color: '#0a66c2' }}
+              title="Give me a random scenario"
+            >
+              Surprise Me 🎲
+            </button>
+          )}
         </div>
-        <textarea
-          id="reality-input"
-          value={input}
-          onChange={(e) => setInput(e.target.value)}
-          onKeyDown={handleKeyDown}
-          placeholder={placeholder}
-          maxLength={500}
-          rows={3}
-          className="w-full rounded-xl border px-4 py-3 placeholder-zinc-500 
-                     focus:outline-none focus:ring-2 focus:ring-[#0A66C2]/60 focus:border-transparent
-                     resize-none transition-all duration-200 text-base sm:text-lg"
-          style={{ backgroundColor: 'var(--input-bg)', borderColor: 'var(--border-primary)', color: 'var(--text-primary)' }}
-          disabled={loading}
-          aria-label="What did you actually do today?"
-        />
 
         <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-4">
           <div className="flex flex-wrap items-center gap-3 w-full sm:w-auto justify-center sm:justify-start">
