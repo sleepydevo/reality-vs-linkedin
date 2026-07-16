@@ -863,10 +863,20 @@ export default function Home() {
       )}
 
       {/* ── Footer ── */}
-      <footer className="mt-8 mb-4 text-center text-xs flex flex-col gap-2 items-center" style={{ color: 'var(--text-muted)' }}>
+      <footer className="mt-12 mb-8 text-center text-xs flex flex-col gap-5 items-center" style={{ color: 'var(--text-muted)' }}>
         <div>Powered by AI &amp; regret. No data stored, no accounts, just vibes.</div>
-        <div>
-          Contact: <a href="mailto:testacountsai7@gmail.com" className="hover:underline text-blue-500">testacountsai7@gmail.com</a>
+        
+        <div className="flex flex-col items-center gap-3 mt-2">
+          <div className="text-sm font-medium">Made by sleepydev</div>
+          <a
+            href="mailto:testacountsai7@gmail.com"
+            className="relative group inline-flex items-center justify-center px-6 py-2.5 text-sm font-bold text-white transition-all duration-200 bg-gray-900 border border-gray-800 rounded-full dark:bg-white dark:text-gray-900 dark:border-gray-200 hover:scale-105 focus:outline-none"
+          >
+            <div className="absolute -inset-1 rounded-full opacity-30 group-hover:opacity-100 transition duration-500 blur-md bg-gradient-to-r from-blue-500 via-indigo-500 to-purple-500 animate-pulse"></div>
+            <span className="relative flex items-center gap-2">
+              ✉️ Contact
+            </span>
+          </a>
         </div>
       </footer>
 
