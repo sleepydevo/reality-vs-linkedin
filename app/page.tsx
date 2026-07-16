@@ -872,10 +872,9 @@ export default function Home() {
             href="https://mail.google.com/mail/?view=cm&fs=1&to=testacountsai7@gmail.com"
             target="_blank"
             rel="noopener noreferrer"
-            className="relative group inline-flex items-center justify-center px-6 py-2.5 text-sm font-bold text-white transition-all duration-200 bg-gray-900 border border-gray-800 rounded-full dark:bg-white dark:text-gray-900 dark:border-gray-200 hover:scale-105 focus:outline-none"
+            className="inline-flex items-center justify-center px-6 py-2.5 text-sm font-bold text-white transition-all duration-200 bg-[#0a66c2] rounded-full hover:bg-[#004182] hover:scale-105 focus:outline-none shadow-sm"
           >
-            <div className="absolute -inset-1 rounded-full opacity-30 group-hover:opacity-100 transition duration-500 blur-md bg-blue-600 animate-pulse"></div>
-            <span className="relative flex items-center gap-2">
+            <span className="flex items-center gap-2">
               ✉️ Contact
             </span>
           </a>
