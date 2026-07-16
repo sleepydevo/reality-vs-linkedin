@@ -634,6 +634,19 @@ export default function Home() {
 
       {/* ── Input area ── */}
       <div className="w-full space-y-3">
+        <div className="flex items-center justify-between px-1 -mb-1">
+          <label htmlFor="reality-input" className="text-sm font-medium" style={{ color: 'var(--text-secondary)' }}>
+            Your Reality
+          </label>
+          <button
+            onClick={handleSurpriseMe}
+            className="text-xs font-medium px-3 py-1.5 rounded-full border transition-all hover:bg-gray-100 dark:hover:bg-zinc-800 flex items-center gap-1.5"
+            style={{ borderColor: 'var(--border-primary)', color: 'var(--text-secondary)' }}
+            title="Give me a random scenario"
+          >
+            Surprise Me 🎲
+          </button>
+        </div>
         <textarea
           id="reality-input"
           value={input}
@@ -653,15 +666,6 @@ export default function Home() {
         <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-4">
           <div className="flex flex-wrap items-center gap-3 w-full sm:w-auto justify-center sm:justify-start">
             <span className="text-xs hidden sm:inline-block shrink-0" style={{ color: 'var(--text-muted)' }}>{input.length}/500</span>
-
-            <button
-              onClick={handleSurpriseMe}
-              className="text-xs font-medium px-3 py-1.5 rounded-full border transition-all hover:bg-gray-100 dark:hover:bg-zinc-800"
-              style={{ borderColor: 'var(--border-primary)', color: 'var(--text-secondary)' }}
-              title="Give me a random scenario"
-            >
-              Surprise Me 🎲
-            </button>
 
             <select
               value={length}
