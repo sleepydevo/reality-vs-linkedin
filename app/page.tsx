@@ -328,6 +328,8 @@ async function drawCard(
   ctx.fillText("realityvslinkedin.vercel.app", CANVAS_W / 2, canvasH - 30);
 }
 
+import { SURPRISE_ME_PROMPTS } from "./presets";
+
 // ── Example prompts ──────────────────────────────────────
 
 const EXAMPLES = [
@@ -339,18 +341,6 @@ const EXAMPLES = [
   "I stared out the window for 10 minutes",
   "I microwaved leftover pasta",
   "I forgot someone's name in a meeting",
-];
-
-const SURPRISE_ME_PROMPTS = [
-  "I ate an entire pizza by myself and now I feel sick.",
-  "I tripped on the sidewalk but pretended I was just jogging.",
-  "I accidentally waved at someone who was waving at the person behind me.",
-  "I spent 45 minutes trying to find a movie on Netflix and then just went to sleep.",
-  "My dog threw up on the carpet this morning.",
-  "I replied 'you too' when the waiter told me to enjoy my meal.",
-  "I bought a gym membership 3 months ago and haven't gone once.",
-  "I got fired today because I told my boss his ideas were bad.",
-  "I slept through my alarm and missed my morning standup."
 ];
 
 // ── Main page ────────────────────────────────────────────
