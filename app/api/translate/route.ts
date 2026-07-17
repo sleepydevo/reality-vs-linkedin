@@ -51,7 +51,7 @@ Rules:
 - Talk about outworking everyone while they sleep, skipping meals for efficiency, and treating employees like cogs.
 - End with a deranged question like "Are you willing to bleed for your vision? 👇"
 - Maximum spacing, maximum emojis.
-- Always end with 2-4 ridiculous hashtags.
+- Always end with a few relevant LinkedIn-style hashtags.
 - Return ONLY the rewritten text. No preamble, no quotes, no explanation.`;
 
 const PROMPT_LEVEL_3 = `You are the final boss of LinkedIn Lunatics. You have completely lost touch with reality and humanity.
@@ -63,7 +63,7 @@ Rules:
 - Make completely insane logic jumps (e.g. "I dropped my coffee. This taught me everything I need to know about firing underperformers.")
 - Use ALL the buzzwords at once: synergy, alignment, 10x, paradigm shift, hyper-growth, zero-to-one, bandwidth.
 - Use 3-5 strategically placed emojis to emphasize your delusion. Not too many, just enough to be annoying.
-- Always end with 3-5 absurd hashtags that sound like a delusional CEO made them up.
+- Always end with a few relevant LinkedIn-style hashtags.
 - Return ONLY the rewritten text. No preamble, no quotes, no explanation.`;
 
 async function callOpenAIFormat(url: string, model: string, apiKey: string, systemPrompt: string, userPrompt: string) {
