@@ -722,22 +722,20 @@ export default function Home() {
               <option value="long">Long (Full Broetry)</option>
             </select>
 
-            <div className="flex flex-col gap-1 items-start sm:items-center relative group shrink-0 ml-2">
-              <div className="flex items-center gap-2">
-                <span className="text-xs font-medium" style={{ color: 'var(--text-muted)' }}>Cringe Level:</span>
-                <input
-                  type="range"
-                  min="1"
-                  max="3"
-                  step="1"
-                  value={cringeLevel}
-                  onChange={(e) => setCringeLevel(Number(e.target.value))}
-                  className="w-24 h-1.5 bg-gray-200 rounded-lg appearance-none cursor-pointer dark:bg-zinc-700 accent-[#0A66C2]"
-                />
-              </div>
-              <span className="text-[10px] absolute -bottom-4 whitespace-nowrap" style={{ color: 'var(--text-muted)' }}>
-                {cringeLevel === 1 ? 'Mildly Annoying' : cringeLevel === 2 ? 'Unhinged CEO' : 'Final Boss Lunatic'}
+            <div className="flex flex-col gap-1.5 items-center shrink-0 mx-1">
+              <span className="text-[10px] uppercase font-bold tracking-wider" style={{ color: 'var(--text-muted)' }}>
+                {cringeLevel === 1 ? 'Mildly Annoying' : cringeLevel === 2 ? 'Unhinged CEO' : 'Final Boss'}
               </span>
+              <input
+                type="range"
+                min="1"
+                max="3"
+                step="1"
+                value={cringeLevel}
+                onChange={(e) => setCringeLevel(Number(e.target.value))}
+                className="w-24 h-1.5 bg-gray-200 rounded-lg appearance-none cursor-pointer dark:bg-zinc-700 accent-[#0A66C2]"
+                title={`Cringe Level: ${cringeLevel}`}
+              />
             </div>
 
             {!photoDataUrl && (
