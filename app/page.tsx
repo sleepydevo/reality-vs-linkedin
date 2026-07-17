@@ -363,6 +363,7 @@ export default function Home() {
   const [copied, setCopied] = useState(false);
   const [placeholder, setPlaceholder] = useState(EXAMPLES[0]);
   const [length, setLength] = useState<"short" | "medium" | "long">("medium");
+  const [cringeLevel, setCringeLevel] = useState<number>(1);
   const [cardColor, setCardColor] = useState<string>("#FFFFFF");
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
@@ -482,7 +483,7 @@ export default function Home() {
       const res = await fetch("/api/translate", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ text: trimmed, length }),
+        body: JSON.stringify({ text: trimmed, length, cringeLevel }),
       });
 
       const data = await res.json();
@@ -498,7 +499,7 @@ export default function Home() {
     } finally {
       setLoading(false);
     }
-  }, [input, length]);
+  }, [input, length, cringeLevel]);
 
   const handleDownload = useCallback(() => {
     if (!canvasRef.current) return;
@@ -720,6 +721,24 @@ export default function Home() {
               <option value="medium">Medium (2-3 sentences)</option>
               <option value="long">Long (Full Broetry)</option>
             </select>
+
+            <div className="flex flex-col gap-1 items-start sm:items-center relative group shrink-0 ml-2">
+              <div className="flex items-center gap-2">
+                <span className="text-xs font-medium" style={{ color: 'var(--text-muted)' }}>Cringe Level:</span>
+                <input
+                  type="range"
+                  min="1"
+                  max="3"
+                  step="1"
+                  value={cringeLevel}
+                  onChange={(e) => setCringeLevel(Number(e.target.value))}
+                  className="w-24 h-1.5 bg-gray-200 rounded-lg appearance-none cursor-pointer dark:bg-zinc-700 accent-[#0A66C2]"
+                />
+              </div>
+              <span className="text-[10px] absolute -bottom-4 whitespace-nowrap" style={{ color: 'var(--text-muted)' }}>
+                {cringeLevel === 1 ? 'Mildly Annoying' : cringeLevel === 2 ? 'Unhinged CEO' : 'Final Boss Lunatic'}
+              </span>
+            </div>
 
             {!photoDataUrl && (
               <button
