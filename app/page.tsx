@@ -600,6 +600,22 @@ export default function Home() {
           {theme === 'light' ? '☀️' : theme === 'dark' ? '🌙' : '💻'}
         </button>
 
+        <div className="flex justify-center mb-6 mt-2">
+          <a
+            href="https://www.producthunt.com/products/reality-vs-linkedin-cringe?embed=true&utm_source=badge-featured&utm_medium=badge&utm_campaign=badge-reality-vs-linkedin-cringe"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="hover:scale-105 transition-transform"
+          >
+            <img
+              alt="Reality vs Linkedin cringe - The corporate BS translator you didn't know you needed | Product Hunt"
+              width="250"
+              height="54"
+              src="https://api.producthunt.com/widgets/embed-image/v1/featured.svg?post_id=1198275&theme=light&t=1784298736477"
+            />
+          </a>
+        </div>
+
         <h1 className="text-4xl sm:text-5xl font-extrabold tracking-tight">
           Reality{" "}
           <span style={{ color: 'var(--text-muted)' }} className="font-normal text-3xl sm:text-4xl">
