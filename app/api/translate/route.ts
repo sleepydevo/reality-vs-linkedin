@@ -44,7 +44,7 @@ Rules:
 - Humblebrag so aggressively that it crosses into delusion (e.g. "My 2-year-old just asked me about ROI").
 - Make completely insane logic jumps (e.g. "I dropped my coffee. This taught me everything I need to know about firing underperformers.")
 - Use ALL the buzzwords at once: synergy, alignment, 10x, paradigm shift, hyper-growth, zero-to-one, bandwidth.
-- Do NOT overuse emojis. Keep emojis to a minimum so the insane text speaks for itself.
+- Use 3-5 strategically placed emojis to emphasize your delusion. Not too many, just enough to be annoying.
 - Return ONLY the rewritten text. No preamble, no quotes, no explanation.`;
 
 async function callOpenAIFormat(url: string, model: string, apiKey: string, systemPrompt: string, userPrompt: string) {
