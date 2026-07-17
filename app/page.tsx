@@ -699,77 +699,93 @@ export default function Home() {
           
           <button
             onClick={handleSurpriseMe}
-            className="absolute bottom-3 right-3 text-sm font-bold px-4 py-1.5 rounded-full border-2 transition-all hover:bg-[#0a66c2]/10 shadow-sm bg-transparent"
-            style={{ borderColor: '#0a66c2', color: '#0a66c2' }}
+            className="absolute bottom-3 right-3 text-sm font-medium px-4 py-1.5 rounded-full border border-zinc-700/50 bg-zinc-900/80 hover:bg-zinc-800 text-zinc-300 transition-colors flex items-center gap-2"
             title="Give me a random scenario"
           >
             Surprise Me 🎲
           </button>
         </div>
 
-        <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-4">
-          <div className="flex flex-wrap items-center gap-3 w-full sm:w-auto justify-center sm:justify-start">
-            <span className="text-xs hidden sm:inline-block shrink-0" style={{ color: 'var(--text-muted)' }}>{input.length}/500</span>
+        <div className="flex flex-col sm:flex-row items-center justify-between gap-4 w-full bg-[#111118]/80 border border-zinc-800/80 rounded-2xl p-2.5 mt-2">
+          {/* Left side: char count and select */}
+          <div className="flex items-center gap-3 w-full sm:w-auto">
+            <span className="text-xs font-medium text-zinc-500 pl-3 shrink-0">{input.length}/500</span>
 
-            <select
-              value={length}
-              onChange={(e) => setLength(e.target.value as "short" | "medium" | "long")}
-              className="border text-sm rounded-lg px-3 py-2 focus:ring-2 focus:ring-[#0A66C2]/60 focus:outline-none shrink-0"
-              style={{ backgroundColor: 'var(--select-bg)', borderColor: 'var(--border-primary)', color: 'var(--text-primary)' }}
-            >
-              <option value="short">Short (1 sentence)</option>
-              <option value="medium">Medium (2-3 sentences)</option>
-              <option value="long">Long (Full Broetry)</option>
-            </select>
-
-            <div className="flex flex-col gap-1.5 items-center shrink-0 mx-1">
-              <span className="text-[10px] uppercase font-bold tracking-wider" style={{ color: 'var(--text-muted)' }}>
-                {cringeLevel === 1 ? 'Mildly Annoying' : cringeLevel === 2 ? 'Unhinged CEO' : 'Final Boss'}
-              </span>
-              <input
-                type="range"
-                min="1"
-                max="3"
-                step="1"
-                value={cringeLevel}
-                onChange={(e) => setCringeLevel(Number(e.target.value))}
-                className="w-24 h-1.5 bg-gray-200 rounded-lg appearance-none cursor-pointer dark:bg-zinc-700 accent-[#0A66C2]"
-                title={`Cringe Level: ${cringeLevel}`}
-              />
+            <div className="relative">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-4 h-4 absolute left-3 top-1/2 -translate-y-1/2 text-zinc-400 pointer-events-none">
+                <path strokeLinecap="round" strokeLinejoin="round" d="M7.5 8.25h9m-9 3H12m-9.75 1.51c0 1.6 1.123 2.994 2.707 3.227 1.129.166 2.27.293 3.423.379.35.026.67.21.865.501L12 21l2.755-4.133a1.14 1.14 0 0 1 .865-.501 48.172 48.172 0 0 0 3.423-.379c1.584-.233 2.707-1.626 2.707-3.228V6.741c0-1.602-1.123-2.995-2.707-3.228A48.394 48.394 0 0 0 12 3c-2.392 0-4.744.175-7.043.513C3.373 3.746 2.25 5.14 2.25 6.741v6.018Z" />
+              </svg>
+              <select
+                value={length}
+                onChange={(e) => setLength(e.target.value as "short" | "medium" | "long")}
+                className="bg-zinc-900 border border-zinc-700/50 text-sm rounded-xl pl-9 pr-8 py-2.5 text-zinc-300 focus:ring-1 focus:ring-zinc-600 focus:outline-none hover:border-zinc-600 transition-colors appearance-none cursor-pointer"
+              >
+                <option value="short">Short (1 sentence)</option>
+                <option value="medium">Medium (2-3 sentences)</option>
+                <option value="long">Long (Full Broetry)</option>
+              </select>
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-4 h-4 absolute right-3 top-1/2 -translate-y-1/2 text-zinc-500 pointer-events-none">
+                <path strokeLinecap="round" strokeLinejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5" />
+              </svg>
             </div>
+          </div>
 
+          {/* Middle: Cringe Slider */}
+          <div className="hidden sm:flex flex-col items-center justify-center px-4 w-48">
+            <span className="text-[9px] font-bold text-zinc-500 tracking-widest mb-1.5 uppercase">
+              {cringeLevel === 1 ? 'Mildly Annoying' : cringeLevel === 2 ? 'Unhinged CEO' : 'Final Boss Lunatic'}
+            </span>
+            <input
+              type="range"
+              min="1"
+              max="3"
+              step="1"
+              value={cringeLevel}
+              onChange={(e) => setCringeLevel(Number(e.target.value))}
+              className="w-full h-1 bg-zinc-800 rounded-lg appearance-none cursor-pointer accent-[#4A72FF]"
+            />
+          </div>
+
+          {/* Right side: Photo and Submit */}
+          <div className="flex items-center gap-2 w-full sm:w-auto justify-end">
             {!photoDataUrl && (
               <button
                 onClick={() => setShowUploadModal(true)}
-                className="flex items-center gap-2 px-4 py-2 bg-zinc-800/80 hover:bg-zinc-700 border border-zinc-500/50 hover:border-emerald-500/50 rounded-lg text-sm font-medium text-emerald-400 hover:text-emerald-300 transition-all shadow-[0_0_15px_rgba(16,185,129,0.1)] hover:shadow-[0_0_20px_rgba(16,185,129,0.2)] shrink-0 group"
+                className="flex items-center gap-2 px-4 py-2 bg-transparent hover:bg-zinc-800 border border-zinc-700/50 hover:border-zinc-500 rounded-xl text-sm font-medium text-zinc-300 hover:text-white transition-colors shrink-0"
                 title="Add a photo"
               >
-                <span className="group-hover:scale-110 transition-transform">📸</span> Add Photo
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-4 h-4">
+                  <path strokeLinecap="round" strokeLinejoin="round" d="m2.25 15.75 5.159-5.159a2.25 2.25 0 0 1 3.182 0l5.159 5.159m-1.5-1.5 1.409-1.409a2.25 2.25 0 0 1 3.182 0l2.909 2.909m-18 3.75h16.5a1.5 1.5 0 0 0 1.5-1.5V6a1.5 1.5 0 0 0-1.5-1.5H3.75A1.5 1.5 0 0 0 2.25 6v12a1.5 1.5 0 0 0 1.5 1.5Zm10.5-11.25h.008v.008h-.008V8.25Zm.375 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Z" />
+                </svg>
+                Add Photo
               </button>
             )}
-          </div>
 
-          <button
-            id="corporateify-button"
-            onClick={handleSubmit}
-            disabled={loading || !input.trim()}
-            className="relative px-6 py-2.5 rounded-xl font-semibold text-white text-sm sm:text-base
-                       bg-gradient-to-r from-[#0A66C2] to-[#004182]
-                       hover:from-[#0b7aee] hover:to-[#0A66C2]
-                       disabled:opacity-40 disabled:cursor-not-allowed
-                       transition-all duration-200 active:scale-95
-                       shadow-lg shadow-blue-900/30"
-          >
-            {loading ? (
-              <span className="flex items-center gap-1.5 justify-center">
-                <span className="loading-dot w-1.5 h-1.5 rounded-full bg-white inline-block" />
-                <span className="loading-dot w-1.5 h-1.5 rounded-full bg-white inline-block" />
-                <span className="loading-dot w-1.5 h-1.5 rounded-full bg-white inline-block" />
-              </span>
-            ) : (
-              "Corporate-ify it 🚀"
-            )}
-          </button>
+            <button
+              id="corporateify-button"
+              onClick={handleSubmit}
+              disabled={loading || !input.trim()}
+              className="relative px-6 py-2.5 rounded-xl font-semibold text-white text-sm sm:text-base
+                         bg-[#4A72FF] hover:bg-[#3D63FF]
+                         disabled:opacity-40 disabled:cursor-not-allowed
+                         transition-all duration-200 active:scale-95 flex items-center justify-center gap-2 min-w-[160px]"
+            >
+              {loading ? (
+                <span className="flex items-center gap-1.5 justify-center h-5">
+                  <span className="loading-dot w-1.5 h-1.5 rounded-full bg-white inline-block" />
+                  <span className="loading-dot w-1.5 h-1.5 rounded-full bg-white inline-block" />
+                  <span className="loading-dot w-1.5 h-1.5 rounded-full bg-white inline-block" />
+                </span>
+              ) : (
+                <>
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-4 h-4">
+                    <path fillRule="evenodd" d="M9 4.5a.75.75 0 0 1 .721.544l.813 2.846a3.75 3.75 0 0 0 2.576 2.576l2.846.813a.75.75 0 0 1 0 1.442l-2.846.813a3.75 3.75 0 0 0-2.576 2.576l-.813 2.846a.75.75 0 0 1-1.442 0l-.813-2.846a3.75 3.75 0 0 0-2.576-2.576l-2.846-.813a.75.75 0 0 1 0-1.442l2.846-.813A3.75 3.75 0 0 0 7.466 7.89l.813-2.846A.75.75 0 0 1 9 4.5ZM18 1.5a.75.75 0 0 1 .728.568l.258 1.036c.236.94.97 1.674 1.91 1.91l1.036.258a.75.75 0 0 1 0 1.456l-1.036.258c-.94.236-1.674.97-1.91 1.91l-.258 1.036a.75.75 0 0 1-1.456 0l-.258-1.036a2.625 2.625 0 0 0-1.91-1.91l-1.036-.258a.75.75 0 0 1 0-1.456l1.036-.258a2.625 2.625 0 0 0 1.91-1.91l.258-1.036A.75.75 0 0 1 18 1.5ZM16.5 15a.75.75 0 0 1 .712.513l.394 1.183c.15.447.5.799.948.948l1.183.395a.75.75 0 0 1 0 1.422l-1.183.395c-.447.15-.799.5-.948.948l-.395 1.183a.75.75 0 0 1-1.422 0l-.395-1.183a1.5 1.5 0 0 0-.948-.948l-1.183-.395a.75.75 0 0 1 0-1.422l1.183-.395c.447-.15.799-.5.948-.948l.395-1.183A.75.75 0 0 1 16.5 15Z" clipRule="evenodd" />
+                  </svg>
+                  Corporate-ify it
+                </>
+              )}
+            </button>
+          </div>
         </div>
       </div>
 
@@ -954,20 +970,31 @@ export default function Home() {
       )}
 
       {/* ── Footer ── */}
-      <footer className="mt-12 mb-8 text-center text-xs flex flex-col gap-5 items-center" style={{ color: 'var(--text-muted)' }}>
-        <div>Powered by AI &amp; regret. No data stored, no accounts, just vibes.</div>
+      <div className="w-full max-w-3xl flex items-center justify-center mt-16 mb-8">
+        <div className="h-px bg-gradient-to-r from-transparent via-zinc-800 to-transparent flex-1"></div>
+        <div className="px-4 text-[#4A72FF]">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-4 h-4">
+            <path fillRule="evenodd" d="M10.788 3.21c.448-1.077 1.976-1.077 2.424 0l2.082 5.007 5.404.433c1.164.093 1.636 1.545.749 2.305l-4.117 3.527 1.257 5.273c.271 1.136-.964 2.033-1.96 1.425L12 18.354 7.373 21.18c-.996.608-2.231-.29-1.96-1.425l1.257-5.273-4.117-3.527c-.887-.76-.415-2.212.749-2.305l5.404-.433 2.082-5.006z" clipRule="evenodd" />
+          </svg>
+        </div>
+        <div className="h-px bg-gradient-to-r from-zinc-800 via-transparent to-transparent flex-1"></div>
+      </div>
+
+      <footer className="mb-8 text-center text-xs flex flex-col gap-4 items-center text-zinc-500">
+        <div>Powered by AI & regret. No data stored, no accounts, just vibes.</div>
         
-        <div className="flex flex-col items-center gap-3 mt-2">
-          <div className="text-sm font-medium">Made by sleepydev</div>
+        <div className="flex flex-col items-center gap-3">
+          <div className="text-sm font-medium text-zinc-400">Made by sleepydev</div>
           <a
             href="https://mail.google.com/mail/?view=cm&fs=1&to=testacountsai7@gmail.com"
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center justify-center px-6 py-2.5 text-sm font-bold text-white transition-all duration-200 bg-[#0a66c2] rounded-full hover:bg-[#004182] hover:scale-105 focus:outline-none shadow-sm"
+            className="inline-flex items-center justify-center px-5 py-2 text-sm font-medium text-zinc-400 bg-transparent border border-zinc-700/60 rounded-full hover:bg-zinc-800/50 hover:text-zinc-300 transition-colors"
           >
-            <span className="flex items-center gap-2">
-              ✉️ Contact
-            </span>
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-4 h-4 mr-2">
+              <path strokeLinecap="round" strokeLinejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 0 1-2.25 2.25h-15a2.25 2.25 0 0 1-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0 0 19.5 4.5h-15a2.25 2.25 0 0 0-2.25 2.25m19.5 0v.243a2.25 2.25 0 0 1-1.07 1.916l-7.5 4.615a2.25 2.25 0 0 1-2.36 0L3.32 8.91a2.25 2.25 0 0 1-1.07-1.916V6.75" />
+            </svg>
+            Contact
           </a>
         </div>
       </footer>
