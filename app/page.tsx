@@ -575,6 +575,33 @@ export default function Home() {
     }
   }, []);
 
+  const handleShareSite = useCallback(async () => {
+    const shareText = `Check out Reality vs LinkedIn! It's a hilarious corporate BS translator that turns your mundane tasks into peak thought leadership. 🚀`;
+    const shareUrl = WEB_URL;
+
+    if (navigator.share) {
+      try {
+        await navigator.share({
+          title: "Reality vs LinkedIn",
+          text: shareText,
+          url: shareUrl,
+        });
+        return;
+      } catch (err) {
+        console.log("Error sharing site:", err);
+      }
+    }
+    
+    // Fallback to clipboard
+    try {
+      await navigator.clipboard.writeText(`${shareText} ${shareUrl}`);
+      setShareToast("✅ Link copied to clipboard!");
+      setTimeout(() => setShareToast(null), 3000);
+    } catch (err) {
+      console.log("Error copying link:", err);
+    }
+  }, []);
+
   const handleKeyDown = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
     if (e.key === "Enter" && !e.shiftKey) {
       e.preventDefault();
@@ -586,19 +613,29 @@ export default function Home() {
     <main className="flex flex-col items-center px-4 py-10 sm:py-16 gap-8 max-w-2xl mx-auto">
       {/* ── Header ── */}
       <header className="text-center space-y-3 relative w-full">
-        {/* Theme Toggle */}
-        <button
-          onClick={() => {
-            if (theme === 'system') setTheme('light');
-            else if (theme === 'light') setTheme('dark');
-            else setTheme('system');
-          }}
-          className="fixed top-4 right-4 z-50 p-2.5 rounded-full border shadow-sm backdrop-blur-md transition-all hover:scale-105 active:scale-95 flex items-center justify-center w-10 h-10"
-          style={{ borderColor: 'var(--border-primary)', backgroundColor: 'var(--bg-card)' }}
-          title={`Theme: ${theme}`}
-        >
-          {theme === 'light' ? '☀️' : theme === 'dark' ? '🌙' : '💻'}
-        </button>
+        {/* Floating actions */}
+        <div className="fixed top-4 right-4 z-50 flex items-center gap-3">
+          <button
+            onClick={handleShareSite}
+            className="p-2.5 rounded-full border shadow-sm backdrop-blur-md transition-all hover:scale-105 active:scale-95 flex items-center justify-center w-10 h-10"
+            style={{ borderColor: 'var(--border-primary)', backgroundColor: 'var(--bg-card)' }}
+            title="Share this site"
+          >
+            🔗
+          </button>
+          <button
+            onClick={() => {
+              if (theme === 'system') setTheme('light');
+              else if (theme === 'light') setTheme('dark');
+              else setTheme('system');
+            }}
+            className="p-2.5 rounded-full border shadow-sm backdrop-blur-md transition-all hover:scale-105 active:scale-95 flex items-center justify-center w-10 h-10"
+            style={{ borderColor: 'var(--border-primary)', backgroundColor: 'var(--bg-card)' }}
+            title={`Theme: ${theme}`}
+          >
+            {theme === 'light' ? '☀️' : theme === 'dark' ? '🌙' : '💻'}
+          </button>
+        </div>
 
         <div className="flex justify-center mb-6 mt-2">
           <a
