@@ -705,11 +705,29 @@ export default function Home() {
           >
             Surprise Me 🎲
           </button>
+
+          <div className="absolute bottom-3 left-4 flex flex-col gap-0.5 items-start pointer-events-auto">
+            <div className="flex items-center gap-2">
+              <span className="text-xs font-semibold" style={{ color: 'var(--text-muted)' }}>Cringe Level:</span>
+              <input
+                type="range"
+                min="1"
+                max="3"
+                step="1"
+                value={cringeLevel}
+                onChange={(e) => setCringeLevel(Number(e.target.value))}
+                className="w-20 h-1.5 bg-gray-200 rounded-lg appearance-none cursor-pointer dark:bg-zinc-700 accent-[#0A66C2]"
+              />
+            </div>
+            <span className="text-[10px] font-bold text-[#0A66C2]">
+              {cringeLevel === 1 ? 'Mildly Annoying' : cringeLevel === 2 ? 'Unhinged CEO' : 'Final Boss Lunatic'}
+            </span>
+          </div>
         </div>
 
-        <div className="w-full border rounded-xl px-4 py-3 flex flex-wrap items-center gap-3 sm:gap-4"
-          style={{ borderColor: 'var(--border-primary)', backgroundColor: 'var(--bg-card)' }}>
-            <span className="text-xs shrink-0" style={{ color: 'var(--text-muted)' }}>{input.length}/500</span>
+        <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-4">
+          <div className="flex flex-wrap items-center gap-3 w-full sm:w-auto justify-center sm:justify-start">
+            <span className="text-xs hidden sm:inline-block shrink-0" style={{ color: 'var(--text-muted)' }}>{input.length}/500</span>
 
             <select
               value={length}
@@ -722,53 +740,38 @@ export default function Home() {
               <option value="long">Long (Full Broetry)</option>
             </select>
 
-            <div className="flex flex-col items-center shrink-0">
-              <span className="text-[10px] font-semibold uppercase tracking-wider mb-1" style={{ color: 'var(--text-muted)' }}>
-                {cringeLevel === 1 ? 'Mildly Annoying' : cringeLevel === 2 ? 'Unhinged CEO' : 'Final Boss Lunatic'}
-              </span>
-              <input
-                type="range"
-                min="1"
-                max="3"
-                step="1"
-                value={cringeLevel}
-                onChange={(e) => setCringeLevel(Number(e.target.value))}
-                className="w-28 h-1.5 bg-gray-200 rounded-lg appearance-none cursor-pointer dark:bg-zinc-700 accent-[#0A66C2]"
-              />
-            </div>
-
             {!photoDataUrl && (
               <button
                 onClick={() => setShowUploadModal(true)}
-                className="flex items-center gap-2 px-4 py-2 border rounded-lg text-sm font-medium transition-all shrink-0"
-                style={{ borderColor: 'var(--border-primary)', color: 'var(--text-primary)', backgroundColor: 'var(--bg-tertiary)' }}
+                className="flex items-center gap-2 px-4 py-2 bg-zinc-800/80 hover:bg-zinc-700 border border-zinc-500/50 hover:border-emerald-500/50 rounded-lg text-sm font-medium text-emerald-400 hover:text-emerald-300 transition-all shadow-[0_0_15px_rgba(16,185,129,0.1)] hover:shadow-[0_0_20px_rgba(16,185,129,0.2)] shrink-0 group"
                 title="Add a photo"
               >
-                🖼️ Add Photo
+                <span className="group-hover:scale-110 transition-transform">📸</span> Add Photo
               </button>
             )}
+          </div>
 
-            <button
-              id="corporateify-button"
-              onClick={handleSubmit}
-              disabled={loading || !input.trim()}
-              className="relative px-6 py-2.5 rounded-xl font-semibold text-white text-sm sm:text-base
-                         bg-gradient-to-r from-[#0A66C2] to-[#004182]
-                         hover:from-[#0b7aee] hover:to-[#0A66C2]
-                         disabled:opacity-40 disabled:cursor-not-allowed
-                         transition-all duration-200 active:scale-95
-                         ml-auto shrink-0"
-            >
-              {loading ? (
-                <span className="flex items-center gap-1.5 justify-center">
-                  <span className="loading-dot w-1.5 h-1.5 rounded-full bg-white inline-block" />
-                  <span className="loading-dot w-1.5 h-1.5 rounded-full bg-white inline-block" />
-                  <span className="loading-dot w-1.5 h-1.5 rounded-full bg-white inline-block" />
-                </span>
-              ) : (
-                "Corporate-ify it 🚀"
-              )}
-            </button>
+          <button
+            id="corporateify-button"
+            onClick={handleSubmit}
+            disabled={loading || !input.trim()}
+            className="relative px-6 py-2.5 rounded-xl font-semibold text-white text-sm sm:text-base
+                       bg-gradient-to-r from-[#0A66C2] to-[#004182]
+                       hover:from-[#0b7aee] hover:to-[#0A66C2]
+                       disabled:opacity-40 disabled:cursor-not-allowed
+                       transition-all duration-200 active:scale-95
+                       shadow-lg shadow-blue-900/30"
+          >
+            {loading ? (
+              <span className="flex items-center gap-1.5 justify-center">
+                <span className="loading-dot w-1.5 h-1.5 rounded-full bg-white inline-block" />
+                <span className="loading-dot w-1.5 h-1.5 rounded-full bg-white inline-block" />
+                <span className="loading-dot w-1.5 h-1.5 rounded-full bg-white inline-block" />
+              </span>
+            ) : (
+              "Corporate-ify it 🚀"
+            )}
+          </button>
         </div>
       </div>
 
@@ -953,16 +956,16 @@ export default function Home() {
       )}
 
       {/* ── Footer ── */}
-      <footer className="mt-12 mb-8 text-center text-xs flex flex-col gap-4 items-center" style={{ color: 'var(--text-muted)' }}>
+      <footer className="mt-12 mb-8 text-center text-xs flex flex-col gap-5 items-center" style={{ color: 'var(--text-muted)' }}>
         <div>Powered by AI &amp; regret. No data stored, no accounts, just vibes.</div>
         
-        <div className="flex flex-col items-center gap-3">
+        <div className="flex flex-col items-center gap-3 mt-2">
           <div className="text-sm font-medium">Made by sleepydev</div>
           <a
             href="https://mail.google.com/mail/?view=cm&fs=1&to=testacountsai7@gmail.com"
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center justify-center px-6 py-2.5 text-sm font-bold text-white transition-all duration-200 bg-[#0a66c2] rounded-full hover:bg-[#004182] hover:scale-105 focus:outline-none"
+            className="inline-flex items-center justify-center px-6 py-2.5 text-sm font-bold text-white transition-all duration-200 bg-[#0a66c2] rounded-full hover:bg-[#004182] hover:scale-105 focus:outline-none shadow-sm"
           >
             <span className="flex items-center gap-2">
               ✉️ Contact
