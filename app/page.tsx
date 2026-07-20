@@ -18,7 +18,7 @@ const PhotoEditor = dynamic(() => import("./components/PhotoEditor"), {
 
 const CANVAS_W = 1080;
 const LINKEDIN_BLUE = "#0A66C2";
-const WEB_URL = "https://reality-vs-linkedin.vercel.app"; // Your deployed URL
+const WEB_URL = "https://realityvslinkedin.vercel.app"; // Your deployed URL
 const DIVIDER_X = CANVAS_W / 2;
 const SIDE_PADDING = 60;
 const TEXT_MAX_W = DIVIDER_X - SIDE_PADDING * 2;
