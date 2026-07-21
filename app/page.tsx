@@ -198,7 +198,7 @@ async function drawCard(
   const isDark = getLuminance(bgColor) < 0.5;
   const textColor = isDark ? "#FFFFFF" : "#18181B";
   const dividerColor = isDark ? "#3F3F46" : "#E4E4E7";
-  const footerColor = isDark ? "#71717A" : "#A1A1AA";
+  const footerColor = isDark ? "rgba(255, 255, 255, 0.7)" : "rgba(0, 0, 0, 0.7)";
 
   // ── Background ──
   ctx.fillStyle = bgColor;
